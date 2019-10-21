@@ -45,9 +45,10 @@
     <script>
         var in1=document.getElementById('in1');
         var btn=document.getElementById('btn');
-        var num=123456789;
+        var num='ABCD';
         btn.onclick=function(){
-            if(in1.value==num){
+            if(in1.value==num.toLowerCase()||in1.value==num.toUpperCase()){
+                alert('验证成功');
             }
         }
     </script>
