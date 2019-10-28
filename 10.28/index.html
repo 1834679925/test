@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .tab {
+            width: 600px;
+            height: 400px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .pic {
+            width: 600px;
+            height: 400px;
+        }
+        .pic div {
+            display: none;
+        }
+        .pic div img{
+           width:600px;
+           height:400px;
+        }
+       .num a img{
+       	    width:70px;
+       	    height:60px;
+       	    display:inline-block;
+       	    margin-top: 20px;
+       	    margin-left:22px;
+       }
+        .control {
+            color: white;
+            font-size: 20px;
+            width: 100%;
+            position: absolute;
+            z-index: 30px;
+            top:445px;
+            overflow: hidden;
+        }
+        .control span {
+            display: block;
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height:15px;
+            cursor: pointer;
+           background-color: gainsboro;
+        }
+        .control span:nth-child(1) {
+            float: left;
+        }
+        .control span:nth-child(2) {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="pic" id="pic">
+            <div style="display: block;">
+                <img src="img/1.jpg" alt="">
+            </div>
+            <div>
+                <img src="img/2.jpg" alt="">
+            </div>
+            <div>
+                <img src="img/3.jpg" alt="">
+            </div>
+            <div>
+                <img src="img/4.jpg" alt="">
+            </div>
+            <div>
+                <img src="img/5.jpg" alt="">
+            </div>
+            <div>
+                <img src="img/6.jpg" alt="">
+            </div>
+        </div>
+        <div class="num" id="num">
+            <a href="#"><img src="img/1.jpg"/></a>
+            <a href="#"><img src="img/2.jpg"/></a>
+            <a href="#"><img src="img/3.jpg"/></a>
+            <a href="#"><img src="img/4.jpg"/></a>
+            <a href="#"><img src="img/5.jpg"/></a>
+            <a href="#"><img src="img/6.jpg"/></a>
+        </div>
+        <div class="control">
+            <span id="l">&lt;</span>
+            <span id="r">&gt;</span>
+        </div>
+    </div>
+    <script>
+        var num = document.getElementById('num');
+        var pic = document.getElementById('pic');
+        var 左 = document.getElementById('l');
+        var 右 = document.getElementById('r');
+        var as = num.getElementsByTagName('a');
+        var picdiv = pic.getElementsByTagName('div'); 
+        var 数字 = 0;
+        var timer=null;
+        clearInterval(timer);
+        timer=setInterval(moveRight,2000);
+        for(var o=0;o<picdiv.length;o++){
+            picdiv[o].onmouseover=function(){
+                clearInterval(timer);
+            }
+            picdiv[o].onmouseout=function(){
+                clearInterval(timer);
+                timer=setInterval(moveRight,2000);
+            }
+        }
+
+        function moveRight(){
+             数字++; 
+            if(数字 == as.length){
+                  数字 = 0;
+            }
+            for (var j = 0; j < as.length; j++) {
+                as[j].className = '';
+                picdiv[j].style.display = 'none';
+            }
+            as[数字].className = 'active';
+            picdiv[数字].style.display = 'block';
+        }
+
+         右.onclick = function () {
+             数字++; 
+     if(数字 == as.length){
+                 数字 = 0;
+     }
+     for (var j = 0; j < as.length; j++) {
+        as[j].className = '';
+         picdiv[j].style.display = 'none';
+        }
+            as[数字].className = 'active';
+            picdiv[数字].style.display = 'block';
+        }
+        左.onclick = function () {
+             数字--;
+     if(数字 == -1){
+              数字 = picdiv.length-1;
+     }
+     for (var j = 0; j < as.length; j++) {
+        as[j].className = '';
+        picdiv[j].style.display = 'none';
+        }
+            as[数字].className = 'active';
+            picdiv[数字].style.display = 'block';
+        }
+        
+        
+        for (var i = 0; i < as.length; i++) {
+            as[i].setAttribute('z', i);
+            as[i].onclick = function () {
+                for (var j = 0; j < as.length; j++) {
+                    as[j].className = '';
+                    picdiv[j].style.display = 'none';
+                }
+                this.className = 'active';
+                picdiv[this.getAttribute('z')].style.display = 'block';
+                    数字 = this.getAttribute('z');
+            }
+        }
+    </script>
+</body>
+</html>
